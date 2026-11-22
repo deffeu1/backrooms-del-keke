@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://srq6d61345yx"
+path="res://.godot/imported/pasos gucci (mp3cut.net).wav-70ccaf69e7b69c86dbb566de446b6fca.sample"
+
+[deps]
+
+source_file="res://assets/SONIDOS/PASOS/pasos gucci (mp3cut.net).wav"
+dest_files=["res://.godot/imported/pasos gucci (mp3cut.net).wav-70ccaf69e7b69c86dbb566de446b6fca.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

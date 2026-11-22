@@ -1,0 +1,88 @@
+[gd_scene format=3 uid="uid://chvrxfs4d8yp6"]
+
+[ext_resource type="Script" uid="uid://6yfhba1smtl5" path="res://scripts/jugador.gd" id="1_tml57"]
+[ext_resource type="AudioStream" uid="uid://c8bxkpo3y51xy" path="res://assets/SONIDOS/PASOS/pasos gucci (mp3cut.net) (1).wav" id="2_xutah"]
+[ext_resource type="AudioStream" uid="uid://dtuu2bv6knu8w" path="res://assets/SONIDOS/PASOS/pasos gucci (mp3cut.net) (2).wav" id="3_ovq70"]
+[ext_resource type="AudioStream" uid="uid://srq6d61345yx" path="res://assets/SONIDOS/PASOS/pasos gucci (mp3cut.net).wav" id="4_as36m"]
+[ext_resource type="Script" uid="uid://d3eicg8ca3rfl" path="res://scripts/filtro_vhs.gd" id="5_as36m"]
+[ext_resource type="Shader" uid="uid://up3884lduun3" path="res://assets/shaders/vhs.gdshader" id="5_ovq70"]
+[ext_resource type="AudioStream" uid="uid://dj2vxm3aa1db5" path="res://assets/SONIDOS/RESPIRACION/respiracion.wav" id="7_gjfif"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_nly4d"]
+radius = 0.24853516
+height = 1.6732666
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_tml57"]
+random_pitch = 1.0723308
+streams_count = 3
+stream_0/stream = ExtResource("2_xutah")
+stream_1/stream = ExtResource("3_ovq70")
+stream_2/stream = ExtResource("4_as36m")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_as36m"]
+shader = ExtResource("5_ovq70")
+shader_parameter/curvatura = 5.66000026885
+shader_parameter/aberracion_cromatica = 0.0030000001425
+shader_parameter/intensidad_ruido = 0.122000005795
+shader_parameter/intensidad_scanlines = 0.054000002564999997
+shader_parameter/vinieta = 0.90400004294
+
+[node name="Jugador" type="CharacterBody3D" unique_id=181360410]
+script = ExtResource("1_tml57")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2143282642]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8366333, 0)
+shape = SubResource("CapsuleShape3D_nly4d")
+
+[node name="Cabeza" type="Node3D" parent="." unique_id=336041478]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1837083, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Cabeza" unique_id=154455209]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.08659363, 0)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Cabeza/Camera3D" unique_id=2049878152]
+light_energy = 0.429
+spot_range = 3.7673824
+spot_angle = 42.86
+
+[node name="PasosAudio" type="AudioStreamPlayer3D" parent="." unique_id=786921938]
+stream = SubResource("AudioStreamRandomizer_tml57")
+
+[node name="FiltroVHS" type="CanvasLayer" parent="." unique_id=568824930]
+script = ExtResource("5_as36m")
+
+[node name="TextoRec" type="Label" parent="FiltroVHS" unique_id=397237461]
+offset_right = 146.0
+offset_bottom = 75.0
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 54
+text = "● REC"
+
+[node name="TextoTiempo" type="Label" parent="FiltroVHS" unique_id=1995521775]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 23.0
+grow_horizontal = 0
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 26
+text = "PLAY ►  00:00:00"
+
+[node name="CapaShaderVHS" type="CanvasLayer" parent="." unique_id=1666225366]
+layer = 2
+
+[node name="ColorRect" type="ColorRect" parent="CapaShaderVHS" unique_id=879253620]
+material = SubResource("ShaderMaterial_as36m")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="RespiracionAudio" type="AudioStreamPlayer" parent="." unique_id=1185361374]
+stream = ExtResource("7_gjfif")
+volume_db = -6.204

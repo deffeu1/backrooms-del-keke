@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://cy7xba8y6261m"]
+
+[ext_resource type="PackedScene" uid="uid://e445bfphc5j4" path="res://assets/escenarios 3d/backrooms/backrooms.glb" id="1_itax6"]
+[ext_resource type="PackedScene" uid="uid://chvrxfs4d8yp6" path="res://escenas/jugador.tscn" id="2_geohd"]
+[ext_resource type="AudioStream" uid="uid://dcinkicp10qqg" path="res://assets/SONIDOS/zumbido/zumbido backrooms.wav" id="3_k84fh"]
+
+[sub_resource type="Environment" id="Environment_itax6"]
+background_mode = 1
+background_color = Color(0.032084294, 0.5294295, 0.07805575, 1)
+background_energy_multiplier = 0.4
+ambient_light_source = 2
+ambient_light_energy = 0.1
+glow_enabled = true
+glow_intensity = 0.67
+glow_strength = 0.8
+glow_bloom = 0.1
+fog_enabled = true
+fog_light_color = Color(0.62526333, 0.83677334, 0.025110776, 1)
+fog_light_energy = 2.26
+fog_density = 0.0005
+volumetric_fog_enabled = true
+
+[node name="backrooms" unique_id=1012815589 instance=ExtResource("1_itax6")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="24" unique_id=1234865051]
+environment = SubResource("Environment_itax6")
+
+[node name="Jugador" parent="." index="25" unique_id=181360410 instance=ExtResource("2_geohd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, -0.14318034, -5)
+bob_frecuencia = 3.0
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." index="26" unique_id=1058714659]
+stream = ExtResource("3_k84fh")
+volume_db = 0.848
+autoplay = true
+max_polyphony = 8
