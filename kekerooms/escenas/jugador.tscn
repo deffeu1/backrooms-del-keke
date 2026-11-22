@@ -6,7 +6,11 @@
 [ext_resource type="AudioStream" uid="uid://srq6d61345yx" path="res://assets/SONIDOS/PASOS/pasos gucci (mp3cut.net).wav" id="4_as36m"]
 [ext_resource type="Script" uid="uid://d3eicg8ca3rfl" path="res://scripts/filtro_vhs.gd" id="5_as36m"]
 [ext_resource type="Shader" uid="uid://up3884lduun3" path="res://assets/shaders/vhs.gdshader" id="5_ovq70"]
+[ext_resource type="FontFile" uid="uid://c0ieaud8ksgt3" path="res://assets/tipografia/VCR_OSD_MONO_1.001.ttf" id="6_4mp40"]
 [ext_resource type="AudioStream" uid="uid://dj2vxm3aa1db5" path="res://assets/SONIDOS/RESPIRACION/respiracion.wav" id="7_gjfif"]
+[ext_resource type="Script" uid="uid://bnh4pnjvoriuv" path="res://scripts/menu_pausa.gd" id="9_e85mw"]
+[ext_resource type="AudioStream" uid="uid://cjsweu00h0xju" path="res://assets/SONIDOS/linterna/linterna.wav" id="10_gheh0"]
+[ext_resource type="AudioStream" uid="uid://dncbhywko4htr" path="res://assets/SONIDOS/linterna/shaking linterna.wav" id="11_di65y"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_nly4d"]
 radius = 0.24853516
@@ -19,16 +23,46 @@ stream_0/stream = ExtResource("2_xutah")
 stream_1/stream = ExtResource("3_ovq70")
 stream_2/stream = ExtResource("4_as36m")
 
+[sub_resource type="FontVariation" id="FontVariation_e85mw"]
+base_font = ExtResource("6_4mp40")
+
+[sub_resource type="FontVariation" id="FontVariation_gheh0"]
+base_font = ExtResource("6_4mp40")
+
+[sub_resource type="FontVariation" id="FontVariation_n5bi1"]
+base_font = ExtResource("6_4mp40")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dfbng"]
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_as36m"]
 shader = ExtResource("5_ovq70")
 shader_parameter/curvatura = 5.66000026885
 shader_parameter/aberracion_cromatica = 0.0030000001425
 shader_parameter/intensidad_ruido = 0.122000005795
-shader_parameter/intensidad_scanlines = 0.054000002564999997
+shader_parameter/intensidad_scanlines = 0.05400000256499999
 shader_parameter/vinieta = 0.90400004294
+
+[sub_resource type="FontVariation" id="FontVariation_4mp40"]
+base_font = ExtResource("6_4mp40")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e85mw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gheh0"]
+bg_color = Color(1, 1, 0, 1)
+
+[sub_resource type="FontVariation" id="FontVariation_di65y"]
+base_font = ExtResource("6_4mp40")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_n5bi1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dfbng"]
+bg_color = Color(1, 1, 0, 1)
 
 [node name="Jugador" type="CharacterBody3D" unique_id=181360410]
 script = ExtResource("1_tml57")
+duracion_linterna = 5.0
+energia_linterna_base = 0.1
+fuerza_sacudida_minima = 75.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2143282642]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8366333, 0)
@@ -41,9 +75,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1837083, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.08659363, 0)
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Cabeza/Camera3D" unique_id=2049878152]
-light_energy = 0.429
+light_energy = 0.4
 spot_range = 3.7673824
-spot_angle = 42.86
+spot_angle = 52.799114
 
 [node name="PasosAudio" type="AudioStreamPlayer3D" parent="." unique_id=786921938]
 stream = SubResource("AudioStreamRandomizer_tml57")
@@ -57,6 +91,7 @@ offset_bottom = 75.0
 size_flags_horizontal = 4
 theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = SubResource("FontVariation_e85mw")
 theme_override_font_sizes/font_size = 54
 text = "● REC"
 
@@ -68,8 +103,27 @@ offset_left = -40.0
 offset_bottom = 23.0
 grow_horizontal = 0
 size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 26
+theme_override_fonts/font = SubResource("FontVariation_gheh0")
+theme_override_font_sizes/font_size = 35
 text = "PLAY ►  00:00:00"
+
+[node name="Label" type="Label" parent="FiltroVHS" unique_id=973501593]
+anchors_preset = -1
+anchor_left = 0.81900007
+anchor_top = 0.89500004
+anchor_right = 0.99500006
+anchor_bottom = 0.98100007
+offset_left = -2.4880981
+offset_top = 0.039978027
+offset_right = -0.2401123
+offset_bottom = 1.3119507
+size_flags_horizontal = 4
+theme_override_fonts/font = SubResource("FontVariation_n5bi1")
+theme_override_font_sizes/font_size = 35
+theme_override_styles/normal = SubResource("StyleBoxEmpty_dfbng")
+text = "25/11/2026"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="CapaShaderVHS" type="CanvasLayer" parent="." unique_id=1666225366]
 layer = 2
@@ -83,6 +137,59 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="RespiracionAudio" type="AudioStreamPlayer" parent="." unique_id=1185361374]
+[node name="RespiracionAudio" type="AudioStreamPlayer3D" parent="." unique_id=370489416]
 stream = ExtResource("7_gjfif")
 volume_db = -6.204
+
+[node name="MenuPausa" type="CanvasLayer" parent="." unique_id=1121970323]
+process_mode = 3
+script = ExtResource("9_e85mw")
+
+[node name="ContenedorPausa" type="Control" parent="MenuPausa" unique_id=512707518]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="MenuPausa/ContenedorPausa" unique_id=1152582647]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.30588236)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuPausa/ContenedorPausa" unique_id=1474807862]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BotonReanudar" type="Button" parent="MenuPausa/ContenedorPausa/VBoxContainer" unique_id=1016685101]
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_4mp40")
+theme_override_font_sizes/font_size = 29
+theme_override_styles/normal = SubResource("StyleBoxEmpty_e85mw")
+theme_override_styles/hover = SubResource("StyleBoxFlat_gheh0")
+text = "▶ REANUDAR"
+
+[node name="BotonMenu" type="Button" parent="MenuPausa/ContenedorPausa/VBoxContainer" unique_id=1664039961]
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_di65y")
+theme_override_font_sizes/font_size = 29
+theme_override_styles/normal = SubResource("StyleBoxEmpty_n5bi1")
+theme_override_styles/hover = SubResource("StyleBoxFlat_dfbng")
+text = "■ MENÚ PRINCIPAL"
+
+[node name="LinternaAudio" type="AudioStreamPlayer3D" parent="." unique_id=123826293]
+stream = ExtResource("10_gheh0")
+
+[node name="SacudirLinternaAudio" type="AudioStreamPlayer3D" parent="." unique_id=1406785691]
+stream = ExtResource("11_di65y")

@@ -1,0 +1,93 @@
+[gd_scene format=3 uid="uid://cyg6u15gjqnbm"]
+
+[ext_resource type="PackedScene" uid="uid://e445bfphc5j4" path="res://assets/escenarios 3d/backrooms/backrooms.glb" id="1_37xja"]
+[ext_resource type="Script" uid="uid://c03vcmr5yrst3" path="res://scripts/menu_principal.gd" id="1_p8sbp"]
+[ext_resource type="FontFile" uid="uid://c0ieaud8ksgt3" path="res://assets/tipografia/VCR_OSD_MONO_1.001.ttf" id="2_arcut"]
+[ext_resource type="Shader" uid="uid://up3884lduun3" path="res://assets/shaders/vhs.gdshader" id="4_olkao"]
+
+[sub_resource type="FontVariation" id="FontVariation_qf1q6"]
+base_font = ExtResource("2_arcut")
+
+[sub_resource type="FontVariation" id="FontVariation_p8sbp"]
+base_font = ExtResource("2_arcut")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_p8sbp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p8sbp"]
+bg_color = Color(1, 0.9647059, 0, 1)
+
+[sub_resource type="FontVariation" id="FontVariation_olkao"]
+base_font = ExtResource("2_arcut")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_olkao"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_olkao"]
+bg_color = Color(1, 0.9647059, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bddn2"]
+shader = ExtResource("4_olkao")
+shader_parameter/curvatura = 3.5
+shader_parameter/aberracion_cromatica = 0.0025
+shader_parameter/intensidad_ruido = 0.06
+shader_parameter/intensidad_scanlines = 0.12
+shader_parameter/vinieta = 0.65
+
+[node name="MenuPrincipal" type="Control" unique_id=1066112930]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_p8sbp")
+
+[node name="backrooms" parent="." unique_id=1012815589 instance=ExtResource("1_37xja")]
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=280607059]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 1.1883599, -5)
+
+[node name="CapaUI" type="CanvasLayer" parent="." unique_id=145412862]
+
+[node name="Label" type="Label" parent="CapaUI" unique_id=1231023646]
+offset_right = 180.0
+offset_bottom = 77.0
+theme_override_fonts/font = SubResource("FontVariation_qf1q6")
+theme_override_font_sizes/font_size = 80
+text = "KEKEROOMS"
+
+[node name="BotonJugar" type="Button" parent="CapaUI" unique_id=187938447]
+offset_left = 14.0
+offset_top = 322.0
+offset_right = 224.0
+offset_bottom = 392.0
+theme_override_fonts/font = SubResource("FontVariation_p8sbp")
+theme_override_font_sizes/font_size = 46
+theme_override_styles/normal = SubResource("StyleBoxEmpty_p8sbp")
+theme_override_styles/hover = SubResource("StyleBoxFlat_p8sbp")
+text = "▶ JUGAR"
+
+[node name="BotonSalir" type="Button" parent="CapaUI" unique_id=214512690]
+offset_left = 16.0
+offset_top = 414.0
+offset_right = 226.0
+offset_bottom = 484.0
+theme_override_fonts/font = SubResource("FontVariation_olkao")
+theme_override_font_sizes/font_size = 46
+theme_override_styles/normal = SubResource("StyleBoxEmpty_olkao")
+theme_override_styles/hover = SubResource("StyleBoxFlat_olkao")
+text = "■ SALIR"
+
+[node name="CapaShaderVHS" type="CanvasLayer" parent="." unique_id=1198694336]
+layer = 2
+
+[node name="ColorRect" type="ColorRect" parent="CapaShaderVHS" unique_id=796019339]
+material = SubResource("ShaderMaterial_bddn2")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[connection signal="pressed" from="CapaUI/BotonJugar" to="." method="_on_boton_jugar_pressed"]
+[connection signal="pressed" from="CapaUI/BotonSalir" to="." method="_on_boton_salir_pressed"]

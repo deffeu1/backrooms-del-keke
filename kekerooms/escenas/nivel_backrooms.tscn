@@ -28,6 +28,8 @@ environment = SubResource("Environment_itax6")
 [node name="Jugador" parent="." index="25" unique_id=181360410 instance=ExtResource("2_geohd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, -0.14318034, -5)
 bob_frecuencia = 3.0
+duracion_linterna = 30.0
+recarga_por_sacudida = 17.0
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." index="26" unique_id=1058714659]
 stream = ExtResource("3_k84fh")

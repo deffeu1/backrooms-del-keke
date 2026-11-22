@@ -12,11 +12,20 @@ extends CharacterBody3D
 @export var bob_frecuencia := 2.2
 @export var bob_amplitud := 0.05
 
+@export_group("Linterna y Batería")
+@export var duracion_linterna := 35.0       # Segundos totales encendida
+@export var energia_linterna_base := 3.5    # Intensidad normal de tu SpotLight3D
+@export var umbral_parpadeo := 0.30         # Empieza a titilar al 25% de batería
+@export var fuerza_sacudida_minima := 45.0  # Qué tan rápido hay que mover el mouse
+@export var recarga_por_sacudida := 22.0    # Cuánto recarga al agitar
+
 @onready var cabeza: Node3D = $Cabeza
 @onready var camara: Camera3D = $Cabeza/Camera3D
 @onready var linterna: SpotLight3D = $Cabeza/Camera3D/SpotLight3D
 @onready var pasos_audio: AudioStreamPlayer3D = $PasosAudio
-@onready var respiracion_audio: AudioStreamPlayer = $RespiracionAudio
+@onready var respiracion_audio: AudioStreamPlayer3D = $RespiracionAudio
+@onready var linterna_audio: AudioStreamPlayer3D = $LinternaAudio
+@onready var sacudir_audio: AudioStreamPlayer3D = $SacudirLinternaAudio
 
 var gravedad: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var estamina_actual := 100.0
@@ -24,24 +33,52 @@ var agotado := false
 var tiempo_bob := 0.0
 var paso_dado := false
 
+var bateria_linterna := 100.0
+var linterna_descargada := false
+var timer_parpadeo := 0.0
+
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	estamina_actual = estamina_maxima
+	linterna.light_energy = energia_linterna_base
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		rotate_y(-event.relative.x * sensibilidad_mouse)
 		cabeza.rotate_x(-event.relative.y * sensibilidad_mouse)
 		cabeza.rotation.x = clamp(cabeza.rotation.x, deg_to_rad(-85), deg_to_rad(85))
-	
-	if event.is_action_pressed("ui_cancel"):
-		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	elif event is InputEventMouseButton and event.pressed:
-		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		
+		# Detectar sacudida brusca del mouse cuando la linterna está apagada y necesita carga
+		if not linterna.visible and bateria_linterna < 100.0:
+			if event.relative.length() > fuerza_sacudida_minima:
+				_recargar_linterna_por_sacudida()
 
 	if event is InputEventKey and event.pressed and not event.echo:
 		if event.keycode == KEY_F:
-			linterna.visible = not linterna.visible
+			_alternar_linterna()
+
+func _alternar_linterna() -> void:
+	# Siempre suena el click del botón al apretar F
+	var va_a_encender := not linterna.visible
+	linterna_audio.pitch_scale = 1.08 if va_a_encender else 0.92
+	linterna_audio.play()
+	
+	if linterna.visible:
+		linterna.visible = false
+	elif not linterna_descargada and bateria_linterna > 5.0:
+		linterna.visible = true
+		linterna.light_energy = energia_linterna_base
+
+func _recargar_linterna_por_sacudida() -> void:
+	bateria_linterna = min(100.0, bateria_linterna + recarga_por_sacudida)
+	
+	if not sacudir_audio.playing:
+		sacudir_audio.pitch_scale = randf_range(0.95, 1.05)
+		sacudir_audio.play()
+	
+	# Desbloquea la linterna cuando recupera al menos un 30%
+	if linterna_descargada and bateria_linterna >= 30.0:
+		linterna_descargada = false
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
@@ -64,7 +101,7 @@ func _physics_process(delta: float) -> void:
 		estamina_actual += regeneracion_estamina * delta
 		if estamina_actual >= estamina_maxima:
 			estamina_actual = estamina_maxima
-		if agotado and estamina_actual >= estamina_maxima * 0.8:
+		if agotado and estamina_actual >= estamina_maxima * 0.3:
 			agotado = false
 
 	var velocidad_actual := velocidad_correr if esta_corriendo else velocidad_caminar
@@ -78,6 +115,36 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 	_actualizar_headbob(delta, esta_corriendo)
+	_actualizar_linterna(delta)
+
+func _actualizar_linterna(delta: float) -> void:
+	if not linterna.visible:
+		return
+	
+	# Descuenta batería según la duración configurada
+	bateria_linterna -= (100.0 / duracion_linterna) * delta
+	
+	if bateria_linterna <= 0.0:
+		bateria_linterna = 0.0
+		linterna.visible = false
+		linterna_descargada = true
+		return
+	
+	# Destellos/parpadeos antes de apagarse
+	var porcentaje := bateria_linterna / 100.0
+	if porcentaje <= umbral_parpadeo:
+		timer_parpadeo -= delta
+		if timer_parpadeo <= 0.0:
+			if randf() < 0.45:
+				# Caída brusca de luz (destello apagándose)
+				linterna.light_energy = randf_range(0.0, energia_linterna_base * 0.25)
+				timer_parpadeo = randf_range(0.04, 0.12)
+			else:
+				# Vuelve a encender con un poco menos de fuerza
+				linterna.light_energy = energia_linterna_base * randf_range(0.7, 1.0)
+				timer_parpadeo = randf_range(0.08, 0.35)
+	else:
+		linterna.light_energy = energia_linterna_base
 
 func _actualizar_headbob(delta: float, corriendo: bool) -> void:
 	var velocidad_horizontal := Vector2(velocity.x, velocity.z).length()
