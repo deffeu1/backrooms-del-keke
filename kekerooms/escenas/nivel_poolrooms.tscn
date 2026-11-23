@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://dhj3jg3fmalad"]
+
+[ext_resource type="PackedScene" uid="uid://dhiavgi3h8vei" path="res://assets/escenarios 3d/poolrooms/poolrooms3.glb" id="1_7lkji"]
+[ext_resource type="PackedScene" uid="uid://chvrxfs4d8yp6" path="res://escenas/jugador.tscn" id="2_duiub"]
+[ext_resource type="Script" uid="uid://drds7gamxpw1g" path="res://scripts/nivel_poolrooms.gd" id="2_qtbn8"]
+[ext_resource type="Shader" uid="uid://c2pak2op57loj" path="res://assets/shaders/agua_poolrooms.gdshader" id="3_goge7"]
+[ext_resource type="Script" uid="uid://b7fq5j1brjlk4" path="res://scripts/zona_agua.gd" id="5_eaoke"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_duiub"]
+
+[sub_resource type="Sky" id="Sky_goge7"]
+sky_material = SubResource("ProceduralSkyMaterial_duiub")
+
+[sub_resource type="Environment" id="Environment_duiub"]
+background_mode = 2
+sky = SubResource("Sky_goge7")
+ambient_light_source = 3
+ambient_light_color = Color(0.83632696, 0.83632696, 0.83632696, 1)
+ambient_light_energy = 0.69
+sdfgi_enabled = true
+glow_enabled = true
+glow_bloom = 0.13
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_qtbn8"]
+size = Vector2(30.7, 33.5)
+subdivide_width = 32
+subdivide_depth = 32
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_eaoke"]
+render_priority = 0
+shader = ExtResource("3_goge7")
+shader_parameter/color_superficie = Color(0.75, 0.94, 0.96, 1)
+shader_parameter/color_profundo = Color(0.25, 0.68, 0.78, 1)
+shader_parameter/fuerza_refraccion = 0.025
+shader_parameter/velocidad_ondas = 0.35
+shader_parameter/escala_ondas = 8.0
+shader_parameter/transparencia = 0.35
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_k6bo7"]
+size = Vector3(30.7, 33.5, 0)
+
+[node name="nivel_poolrooms" unique_id=477747781 instance=ExtResource("1_7lkji")]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 6.247113, 0)
+script = ExtResource("2_qtbn8")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." index="11" unique_id=1912548961]
+transform = Transform3D(2.5, 0, 0, 0, -2.364605, 0.8115684, 0, -0.81156826, -2.364605, -5.363068, 19.466122, -39.086834)
+light_color = Color(1, 0.96862745, 0.9098039, 1)
+light_energy = 2.46
+shadow_enabled = true
+
+[node name="Jugador" parent="." index="12" unique_id=181360410 instance=ExtResource("2_duiub")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.140807, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="13" unique_id=124475938]
+environment = SubResource("Environment_duiub")
+
+[node name="Agua" type="MeshInstance3D" parent="." index="14" unique_id=170203574]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.463061, -0.4153452, 4.5870705)
+mesh = SubResource("PlaneMesh_qtbn8")
+surface_material_override/0 = SubResource("ShaderMaterial_eaoke")
+
+[node name="ZonaAgua" type="Area3D" parent="." index="15" unique_id=810038217]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.463061, -0.4153452, 4.5870705)
+script = ExtResource("5_eaoke")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ZonaAgua" index="0" unique_id=1655005982]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.028925896, 0)
+shape = SubResource("BoxShape3D_k6bo7")

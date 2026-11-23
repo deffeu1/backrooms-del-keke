@@ -18,6 +18,7 @@ extends CharacterBody3D
 @export var umbral_parpadeo := 0.30         # Empieza a titilar al 25% de batería
 @export var fuerza_sacudida_minima := 45.0  # Qué tan rápido hay que mover el mouse
 @export var recarga_por_sacudida := 22.0    # Cuánto recarga al agitar
+@export var multiplicador_agua := 0.55  # Reduce la velocidad al 55% dentro del agua
 
 @onready var cabeza: Node3D = $Cabeza
 @onready var camara: Camera3D = $Cabeza/Camera3D
@@ -26,7 +27,9 @@ extends CharacterBody3D
 @onready var respiracion_audio: AudioStreamPlayer3D = $RespiracionAudio
 @onready var linterna_audio: AudioStreamPlayer3D = $LinternaAudio
 @onready var sacudir_audio: AudioStreamPlayer3D = $SacudirLinternaAudio
+@onready var pasos_agua_audio: AudioStreamPlayer3D = $PasosAguaAudio
 
+var en_agua := false
 var gravedad: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var estamina_actual := 100.0
 var agotado := false
@@ -105,6 +108,8 @@ func _physics_process(delta: float) -> void:
 			agotado = false
 
 	var velocidad_actual := velocidad_correr if esta_corriendo else velocidad_caminar
+	if en_agua:
+		velocidad_actual *= multiplicador_agua
 
 	if direccion:
 		velocity.x = direccion.x * velocidad_actual
@@ -159,7 +164,10 @@ func _actualizar_headbob(delta: float, corriendo: bool) -> void:
 		
 		if pos_y < -amplitud_actual * 0.85:
 			if not paso_dado:
-				pasos_audio.play()
+				if en_agua:
+					pasos_agua_audio.play()
+				else:
+					pasos_audio.play()
 				paso_dado = true
 		else:
 			paso_dado = false
@@ -167,3 +175,6 @@ func _actualizar_headbob(delta: float, corriendo: bool) -> void:
 		tiempo_bob = 0.0
 		paso_dado = false
 		camara.position = camara.position.lerp(Vector3.ZERO, delta * 8.0)
+
+func establecer_en_agua(estado: bool) -> void:
+	en_agua = estado

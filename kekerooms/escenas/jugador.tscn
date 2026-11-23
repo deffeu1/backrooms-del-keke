@@ -58,6 +58,9 @@ base_font = ExtResource("6_4mp40")
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dfbng"]
 bg_color = Color(1, 1, 0, 1)
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_di65y"]
+streams_count = 3
+
 [node name="Jugador" type="CharacterBody3D" unique_id=181360410]
 script = ExtResource("1_tml57")
 duracion_linterna = 5.0
@@ -193,3 +196,6 @@ stream = ExtResource("10_gheh0")
 
 [node name="SacudirLinternaAudio" type="AudioStreamPlayer3D" parent="." unique_id=1406785691]
 stream = ExtResource("11_di65y")
+
+[node name="PasosAguaAudio" type="AudioStreamPlayer3D" parent="." unique_id=1722063704]
+stream = SubResource("AudioStreamRandomizer_di65y")

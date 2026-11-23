@@ -15,6 +15,10 @@ run/main_scene="uid://cyg6u15gjqnbm"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
+[audio]
+
+buses/default_bus_layout="uid://cjhqf8u0os38h"
+
 [file_customization]
 
 folder_colors={
