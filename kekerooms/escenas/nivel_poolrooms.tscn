@@ -50,13 +50,19 @@ light_energy = 2.46
 shadow_enabled = true
 
 [node name="Jugador" parent="." index="12" unique_id=181360410 instance=ExtResource("2_duiub")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.140807, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.710949, 3.4958599)
+velocidad_caminar = 3.0
+velocidad_correr = 5.8
+bob_frecuencia = 3.0
+bob_frecuencia_agua = 3.2
+inclinacion_lateral = 3.4
+inercia_giro = 0.08
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." index="13" unique_id=124475938]
 environment = SubResource("Environment_duiub")
 
 [node name="Agua" type="MeshInstance3D" parent="." index="14" unique_id=170203574]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.463061, -0.4153452, 4.5870705)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.463061, -1.1387558, 4.5870705)
 mesh = SubResource("PlaneMesh_qtbn8")
 surface_material_override/0 = SubResource("ShaderMaterial_eaoke")
 

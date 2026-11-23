@@ -7,10 +7,14 @@
 [ext_resource type="Script" uid="uid://d3eicg8ca3rfl" path="res://scripts/filtro_vhs.gd" id="5_as36m"]
 [ext_resource type="Shader" uid="uid://up3884lduun3" path="res://assets/shaders/vhs.gdshader" id="5_ovq70"]
 [ext_resource type="FontFile" uid="uid://c0ieaud8ksgt3" path="res://assets/tipografia/VCR_OSD_MONO_1.001.ttf" id="6_4mp40"]
+[ext_resource type="Texture2D" uid="uid://igtpxk1fdjga" path="res://assets/SONIDOS/linterna/Gemini_Generated_Image_trwlk4trwlk4trwl-Photoroom.png" id="7_3i2lk"]
 [ext_resource type="AudioStream" uid="uid://dj2vxm3aa1db5" path="res://assets/SONIDOS/RESPIRACION/respiracion.wav" id="7_gjfif"]
 [ext_resource type="Script" uid="uid://bnh4pnjvoriuv" path="res://scripts/menu_pausa.gd" id="9_e85mw"]
 [ext_resource type="AudioStream" uid="uid://cjsweu00h0xju" path="res://assets/SONIDOS/linterna/linterna.wav" id="10_gheh0"]
 [ext_resource type="AudioStream" uid="uid://dncbhywko4htr" path="res://assets/SONIDOS/linterna/shaking linterna.wav" id="11_di65y"]
+[ext_resource type="AudioStream" uid="uid://uvk6ae03huw8" path="res://assets/SONIDOS/pasos agua/freesound_community-wet-steps-on-liquid-and-dirt-59506 (mp3cut.net) (1).wav" id="12_d4beg"]
+[ext_resource type="AudioStream" uid="uid://cmrik7mhs88l0" path="res://assets/SONIDOS/pasos agua/freesound_community-wet-steps-on-liquid-and-dirt-59506 (mp3cut.net) (2).wav" id="13_3i2lk"]
+[ext_resource type="AudioStream" uid="uid://bt1esl07mpf4j" path="res://assets/SONIDOS/pasos agua/freesound_community-wet-steps-on-liquid-and-dirt-59506 (mp3cut.net).wav" id="14_c868g"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_nly4d"]
 radius = 0.24853516
@@ -50,6 +54,22 @@ base_font = ExtResource("6_4mp40")
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gheh0"]
 bg_color = Color(1, 1, 0, 1)
 
+[sub_resource type="FontVariation" id="FontVariation_d4beg"]
+base_font = ExtResource("6_4mp40")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3i2lk"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c868g"]
+bg_color = Color(1, 1, 0, 1)
+
+[sub_resource type="FontVariation" id="FontVariation_t7qj4"]
+base_font = ExtResource("6_4mp40")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l35hm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aulex"]
+bg_color = Color(1, 1, 0, 1)
+
 [sub_resource type="FontVariation" id="FontVariation_di65y"]
 base_font = ExtResource("6_4mp40")
 
@@ -60,9 +80,13 @@ bg_color = Color(1, 1, 0, 1)
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_di65y"]
 streams_count = 3
+stream_0/stream = ExtResource("12_d4beg")
+stream_1/stream = ExtResource("13_3i2lk")
+stream_2/stream = ExtResource("14_c868g")
 
 [node name="Jugador" type="CharacterBody3D" unique_id=181360410]
 script = ExtResource("1_tml57")
+bob_frecuencia_agua = 2.2
 duracion_linterna = 5.0
 energia_linterna_base = 0.1
 fuerza_sacudida_minima = 75.0
@@ -76,6 +100,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1837083, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Cabeza" unique_id=154455209]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.08659363, 0)
+fov = 93.3
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Cabeza/Camera3D" unique_id=2049878152]
 light_energy = 0.4
@@ -183,6 +208,22 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_e85mw")
 theme_override_styles/hover = SubResource("StyleBoxFlat_gheh0")
 text = "▶ REANUDAR"
 
+[node name="BotonNivel1" type="Button" parent="MenuPausa/ContenedorPausa/VBoxContainer" unique_id=440473014]
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_d4beg")
+theme_override_font_sizes/font_size = 29
+theme_override_styles/normal = SubResource("StyleBoxEmpty_3i2lk")
+theme_override_styles/hover = SubResource("StyleBoxFlat_c868g")
+text = "▶ NIVEL 1"
+
+[node name="BotonPoolrooms" type="Button" parent="MenuPausa/ContenedorPausa/VBoxContainer" unique_id=1012481486]
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_t7qj4")
+theme_override_font_sizes/font_size = 29
+theme_override_styles/normal = SubResource("StyleBoxEmpty_l35hm")
+theme_override_styles/hover = SubResource("StyleBoxFlat_aulex")
+text = "▶ POOLROOMS"
+
 [node name="BotonMenu" type="Button" parent="MenuPausa/ContenedorPausa/VBoxContainer" unique_id=1664039961]
 layout_mode = 2
 theme_override_fonts/font = SubResource("FontVariation_di65y")
@@ -199,3 +240,22 @@ stream = ExtResource("11_di65y")
 
 [node name="PasosAguaAudio" type="AudioStreamPlayer3D" parent="." unique_id=1722063704]
 stream = SubResource("AudioStreamRandomizer_di65y")
+
+[node name="CapaHUDLimpia" type="CanvasLayer" parent="." unique_id=537312013]
+layer = 3
+
+[node name="IconoAgitarLinterna" type="TextureRect" parent="CapaHUDLimpia" unique_id=1320865803]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = -1
+anchor_left = 0.39800003
+anchor_top = 0.61600006
+anchor_right = 0.62
+anchor_bottom = 0.915
+offset_left = 58.503967
+offset_top = 10.83197
+offset_right = -69.23999
+offset_bottom = -54.920044
+pivot_offset = Vector2(64, 64)
+texture = ExtResource("7_3i2lk")
+expand_mode = 1
+stretch_mode = 5
