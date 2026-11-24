@@ -43,6 +43,7 @@ size = Vector3(30.7, 33.5, 0)
 [node name="nivel_poolrooms" unique_id=477747781 instance=ExtResource("1_7lkji")]
 transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 6.247113, 0)
 script = ExtResource("2_qtbn8")
+tiempo_maximo = 30.0
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." index="11" unique_id=1912548961]
 transform = Transform3D(2.5, 0, 0, 0, -2.364605, 0.8115684, 0, -0.81156826, -2.364605, -5.363068, 19.466122, -39.086834)
