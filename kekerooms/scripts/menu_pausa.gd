@@ -11,6 +11,9 @@ extends CanvasLayer
 @onready var boton_menu: Button = $ContenedorPausa/VBoxContainer/BotonMenu
 @onready var sonido_hover: AudioStreamPlayer = $SonidoHover
 @onready var sonido_click: AudioStreamPlayer = $SonidoClick
+@onready var boton_nosequerooms: Button = $ContenedorPausa/VBoxContainer/BotonNosequeroomslrooms
+
+
 
 func _ready() -> void:
 	contenedor.visible = false
@@ -25,7 +28,7 @@ func _ready() -> void:
 	boton_nivel_1.pressed.connect(_cambiar_nivel.bind(ruta_nivel_1))
 	boton_poolrooms.pressed.connect(_cambiar_nivel.bind(ruta_poolrooms))
 	boton_menu.pressed.connect(_ir_al_menu)
-
+	boton_nosequerooms.pressed.connect(_on_boton_nosequerooms_pressed)
 func _reproducir_hover() -> void:
 	sonido_hover.pitch_scale = randf_range(0.96, 1.04)
 	sonido_hover.play()
@@ -61,3 +64,6 @@ func _ir_al_menu() -> void:
 	get_tree().paused = false
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	get_tree().change_scene_to_file(ruta_menu_principal)
+func _on_boton_nosequerooms_pressed() -> void:
+	get_tree().paused = false
+	get_tree().change_scene_to_file("res://escenas/nosequerooms.tscn")

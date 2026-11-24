@@ -10,16 +10,13 @@ extends Node3D
 @onready var jugador: Node3D = find_child("Jugador", true, false)
 
 func _ready() -> void:
-	# Envía todos los AudioStreamPlayer3D (incluido SonidoAmbienteAleatorio) al bus con eco
 	for nodo in find_children("*", "AudioStreamPlayer3D", true, false):
 		if nodo.name != "RespiracionAudio":
 			nodo.bus = &"Poolrooms"
 	
-	# Habilita el salto solo en los Poolrooms
 	if jugador and "puede_saltar" in jugador:
 		jugador.puede_saltar = true
 	
-	# Inicia el ciclo de sonidos aleatorios
 	timer_sonido.timeout.connect(_reproducir_sonido_aleatorio)
 	_programar_siguiente_sonido()
 

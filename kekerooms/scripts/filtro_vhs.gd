@@ -8,10 +8,8 @@ var tiempo_transcurrido := 0.0
 func _process(delta: float) -> void:
 	tiempo_transcurrido += delta
 	
-	# Parpadeo del indicador REC cada medio segundo
 	texto_rec.visible = int(tiempo_transcurrido * 2.0) % 2 == 0
 	
-	# Formato de contador HH:MM:SS
 	var horas := int(tiempo_transcurrido / 3600)
 	var minutos := int(tiempo_transcurrido / 60) % 60
 	var segundos := int(tiempo_transcurrido) % 60

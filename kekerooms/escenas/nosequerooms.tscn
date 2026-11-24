@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://dspggfua0m14f"]
+
+[ext_resource type="PackedScene" uid="uid://bxj6avh0nl4ow" path="res://assets/escenarios 3d/nosequerooms.glb" id="1_lbkog"]
+[ext_resource type="PackedScene" uid="uid://chvrxfs4d8yp6" path="res://escenas/jugador.tscn" id="2_e8etr"]
+[ext_resource type="Script" uid="uid://5yggo1n7fiwd" path="res://scripts/nosequerooms.gd" id="2_lngom"]
+
+[sub_resource type="Environment" id="Environment_lbkog"]
+background_mode = 1
+background_color = Color(0.624502, 0.7147578, 0.98106927, 1)
+fog_enabled = true
+fog_density = 0.0069
+
+[node name="nosequerooms" unique_id=552298739 instance=ExtResource("1_lbkog")]
+transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, 0, 0, 0)
+script = ExtResource("2_lngom")
+
+[node name="Jugador" parent="." index="4" unique_id=181360410 instance=ExtResource("2_e8etr")]
+transform = Transform3D(0.29999998, 0, 0, 0, 0.29999998, 0, 0, 0, 0.29999998, 0.66488934, 0.31599054, 1.9254475)
+estamina_maxima = 400.0
+gasto_estamina = 8.0
+puede_saltar = true
+duracion_linterna = 30.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="5" unique_id=1702277277]
+environment = SubResource("Environment_lbkog")
+
+[node name="SonidoAmbiente" type="AudioStreamPlayer" parent="." index="6" unique_id=155796675]
+bus = &"AireLibre"
+
+[node name="TimerAmbiente" type="Timer" parent="SonidoAmbiente" index="0" unique_id=1360304945]
+one_shot = true
+autostart = true

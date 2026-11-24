@@ -10,7 +10,6 @@ extends Control
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	
-	# Conecta el sonido de hover y clic a todos los botones del menú automáticamente
 	for boton in $CapaUI.get_children():
 		if boton is Button:
 			boton.mouse_entered.connect(_reproducir_hover)
@@ -27,7 +26,6 @@ func _reproducir_click() -> void:
 	sonido_click.play()
 
 func _al_presionar_jugar() -> void:
-	# Pequeña pausa de 0.12s para que se alcance a escuchar el clic antes de cambiar de escena
 	await get_tree().create_timer(0.12).timeout
 	get_tree().change_scene_to_file(ruta_nivel)
 

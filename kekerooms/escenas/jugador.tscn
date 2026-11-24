@@ -105,8 +105,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.08659363, 0)
 fov = 93.3
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Cabeza/Camera3D" unique_id=2049878152]
-light_energy = 0.733
-spot_range = 3.7673824
+light_energy = 1.352
+spot_range = 5.0248137
 spot_angle = 52.799114
 
 [node name="PasosAudio" type="AudioStreamPlayer3D" parent="." unique_id=786921938]
@@ -233,6 +233,14 @@ theme_override_font_sizes/font_size = 29
 theme_override_styles/normal = SubResource("StyleBoxEmpty_l35hm")
 theme_override_styles/hover = SubResource("StyleBoxFlat_aulex")
 text = "▶ POOLROOMS"
+
+[node name="BotonNosequeroomslrooms" type="Button" parent="MenuPausa/ContenedorPausa/VBoxContainer" unique_id=2005108261]
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_t7qj4")
+theme_override_font_sizes/font_size = 29
+theme_override_styles/normal = SubResource("StyleBoxEmpty_l35hm")
+theme_override_styles/hover = SubResource("StyleBoxFlat_aulex")
+text = "▶ DREAM CORE"
 
 [node name="BotonMenu" type="Button" parent="MenuPausa/ContenedorPausa/VBoxContainer" unique_id=1664039961]
 layout_mode = 2

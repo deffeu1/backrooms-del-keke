@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://chvrxfs4d8yp6" path="res://escenas/jugador.tscn" id="2_geohd"]
 [ext_resource type="Script" uid="uid://cctbagq2q1i1y" path="res://scripts/nivel_backrooms.gd" id="2_sik8n"]
 [ext_resource type="AudioStream" uid="uid://cfv3hkdscdvwt" path="res://assets/SONIDOS/ambiente/1er sonido backrooms.wav" id="4_eon4b"]
+[ext_resource type="AudioStream" uid="uid://cs0aq1n73jdr3" path="res://assets/SONIDOS/radioloca+/radioloca.wav" id="5_eon4b"]
 
 [sub_resource type="Environment" id="Environment_itax6"]
 background_mode = 1
@@ -60,3 +61,8 @@ unit_size = 5.74
 
 [node name="TimerSonidoAleatorio" type="Timer" parent="SonidoAmbienteAleatorio" index="0" unique_id=851933530]
 one_shot = true
+
+[node name="SonidoEntrada" type="AudioStreamPlayer" parent="." index="28" unique_id=1284525316]
+stream = ExtResource("5_eon4b")
+volume_db = -5.683
+autoplay = true

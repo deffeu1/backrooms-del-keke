@@ -6,9 +6,12 @@
 [ext_resource type="Shader" uid="uid://up3884lduun3" path="res://assets/shaders/vhs.gdshader" id="4_olkao"]
 [ext_resource type="AudioStream" uid="uid://bfrnmchnmut28" path="res://assets/SONIDOS/botones/boton hover.wav" id="5_bddn2"]
 [ext_resource type="AudioStream" uid="uid://dets8t2rhqnci" path="res://assets/SONIDOS/botones/boton click.wav" id="6_x5yya"]
+[ext_resource type="AudioStream" uid="uid://dtlfyw2gl6mn3" path="res://assets/SONIDOS/menu/vidssave.com Yo quiero un keke - La Cobra 48KBPS (mp3cut.net).wav" id="7_x5yya"]
 
 [sub_resource type="FontVariation" id="FontVariation_qf1q6"]
 base_font = ExtResource("2_arcut")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_x5yya"]
 
 [sub_resource type="FontVariation" id="FontVariation_p8sbp"]
 base_font = ExtResource("2_arcut")
@@ -52,23 +55,29 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 1.1883599, -5)
 
 [node name="Label" type="Label" parent="CapaUI" unique_id=1231023646]
 anchors_preset = -1
-anchor_right = 0.36600003
-anchor_bottom = 0.119
-offset_right = -241.63202
-offset_bottom = -0.11199951
+anchor_left = 0.39100003
+anchor_top = 0.102000006
+anchor_right = 0.832
+anchor_bottom = 0.23300001
+offset_left = 0.56796265
+offset_top = -0.09600067
+offset_right = -1.4639893
+offset_bottom = 0.015991211
 theme_override_fonts/font = SubResource("FontVariation_qf1q6")
-theme_override_font_sizes/font_size = 80
+theme_override_font_sizes/font_size = 96
+theme_override_styles/normal = SubResource("StyleBoxEmpty_x5yya")
 text = "KEKEROOMS"
 
 [node name="BotonJugar" type="Button" parent="CapaUI" unique_id=187938447]
 anchors_preset = -1
-anchor_top = 0.497
-anchor_right = 0.194
-anchor_bottom = 0.605
-offset_left = 14.0
-offset_top = -0.055999756
-offset_right = 0.5119934
-offset_bottom = -0.040008545
+anchor_left = 0.393
+anchor_top = 0.386
+anchor_right = 0.57600003
+anchor_bottom = 0.49400002
+offset_left = 0.26397705
+offset_top = -0.12800598
+offset_right = -0.552063
+offset_bottom = -0.11199951
 theme_override_fonts/font = SubResource("FontVariation_p8sbp")
 theme_override_font_sizes/font_size = 46
 theme_override_styles/normal = SubResource("StyleBoxEmpty_p8sbp")
@@ -77,13 +86,14 @@ text = "▶ JUGAR"
 
 [node name="BotonSalir" type="Button" parent="CapaUI" unique_id=214512690]
 anchors_preset = -1
-anchor_top = 0.63900006
-anchor_right = 0.19600001
-anchor_bottom = 0.74700004
-offset_left = 16.0
-offset_top = -0.072052
-offset_right = 0.20799255
-offset_bottom = -0.056030273
+anchor_left = 0.39600003
+anchor_top = 0.531
+anchor_right = 0.578
+anchor_bottom = 0.63900006
+offset_left = -0.1920166
+offset_top = -0.088012695
+offset_right = 0.14398193
+offset_bottom = -0.072052
 theme_override_fonts/font = SubResource("FontVariation_olkao")
 theme_override_font_sizes/font_size = 46
 theme_override_styles/normal = SubResource("StyleBoxEmpty_olkao")
@@ -107,6 +117,11 @@ stream = ExtResource("5_bddn2")
 
 [node name="SonidoClick" type="AudioStreamPlayer" parent="." unique_id=1882454727]
 stream = ExtResource("6_x5yya")
+
+[node name="MusicaMenu" type="AudioStreamPlayer" parent="." unique_id=798408438]
+stream = ExtResource("7_x5yya")
+volume_db = -4.262
+autoplay = true
 
 [connection signal="pressed" from="CapaUI/BotonJugar" to="." method="_on_boton_jugar_pressed"]
 [connection signal="pressed" from="CapaUI/BotonSalir" to="." method="_on_boton_salir_pressed"]

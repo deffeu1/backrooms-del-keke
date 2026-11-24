@@ -9,16 +9,14 @@ extends CharacterBody3D
 @export var gasto_estamina := 28.0
 @export var regeneracion_estamina := 18.0
 @export var sensibilidad_mouse := 0.002
-@export_group("Movimiento y Estamina")
 @export var puede_saltar := false
+
 @export_group("Headbobbing y Pasos")
 @export var bob_frecuencia := 2.2
 @export var bob_amplitud := 0.05
 @export var bob_frecuencia_agua := 1.8
 @export var bob_amplitud_agua := 0.065
 @export var multiplicador_agua := 0.55
-@onready var icono_agitar: TextureRect = $CapaHUDLimpia/IconoAgitarLinterna
-
 
 @export_group("Efecto Bodycam")
 @export var inclinacion_lateral := 2.2
@@ -33,6 +31,7 @@ extends CharacterBody3D
 @export var fuerza_sacudida_minima := 45.0
 @export var recarga_por_sacudida := 22.0
 
+@onready var icono_agitar: TextureRect = $CapaHUDLimpia/IconoAgitarLinterna
 @onready var cabeza: Node3D = $Cabeza
 @onready var camara: Camera3D = $Cabeza/Camera3D
 @onready var linterna: SpotLight3D = $Cabeza/Camera3D/SpotLight3D
@@ -69,6 +68,27 @@ func _ready() -> void:
 	icono_agitar.pivot_offset = icono_agitar.size * 0.5
 	ruido.seed = randi()
 	ruido.frequency = 0.6
+	
+	_configurar_audio_nivel()
+
+func _configurar_audio_nivel() -> void:
+	var nombre_escena := get_tree().current_scene.name
+	
+	if nombre_escena == "nosequerooms":
+		pasos_audio.bus = "AireLibre"
+		respiracion_audio.bus = "AireLibre"
+		linterna_audio.bus = "AireLibre"
+		sacudir_audio.bus = "AireLibre"
+	elif nombre_escena == "poolrooms":
+		pasos_audio.bus = "Master"
+		respiracion_audio.bus = "Master"
+		linterna_audio.bus = "Master"
+		sacudir_audio.bus = "Master"
+	else:
+		pasos_audio.bus = "Eco"
+		respiracion_audio.bus = "Eco"
+		linterna_audio.bus = "Eco"
+		sacudir_audio.bus = "Eco"
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
@@ -249,12 +269,11 @@ func _actualizar_headbob(delta: float, corriendo: bool) -> void:
 
 func establecer_en_agua(estado: bool) -> void:
 	en_agua = estado
+
 func _process(delta: float) -> void:
 	if icono_agitar.modulate.a > 0.01:
 		tiempo_agitacion_ui += delta * 18.0
-		# Rotación rápida de un lado a otro tipo sacudida
 		icono_agitar.rotation_degrees = sin(tiempo_agitacion_ui) * 14.0
-		# Pequeño desplazamiento horizontal acompañando el movimiento
 		icono_agitar.position.x += cos(tiempo_agitacion_ui) * 25.0 * delta
 	else:
 		icono_agitar.rotation_degrees = 0.0
