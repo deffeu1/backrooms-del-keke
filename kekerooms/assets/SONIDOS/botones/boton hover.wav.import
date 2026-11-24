@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bfrnmchnmut28"
+path="res://.godot/imported/boton hover.wav-57d7c9661875ac60c93db398b1854486.sample"
+
+[deps]
+
+source_file="res://assets/SONIDOS/botones/boton hover.wav"
+dest_files=["res://.godot/imported/boton hover.wav-57d7c9661875ac60c93db398b1854486.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

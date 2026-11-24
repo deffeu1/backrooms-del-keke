@@ -11,7 +11,9 @@
 [ext_resource type="AudioStream" uid="uid://dj2vxm3aa1db5" path="res://assets/SONIDOS/RESPIRACION/respiracion.wav" id="7_gjfif"]
 [ext_resource type="Script" uid="uid://bnh4pnjvoriuv" path="res://scripts/menu_pausa.gd" id="9_e85mw"]
 [ext_resource type="AudioStream" uid="uid://cjsweu00h0xju" path="res://assets/SONIDOS/linterna/linterna.wav" id="10_gheh0"]
+[ext_resource type="AudioStream" uid="uid://bfrnmchnmut28" path="res://assets/SONIDOS/botones/boton hover.wav" id="10_t7qj4"]
 [ext_resource type="AudioStream" uid="uid://dncbhywko4htr" path="res://assets/SONIDOS/linterna/shaking linterna.wav" id="11_di65y"]
+[ext_resource type="AudioStream" uid="uid://dets8t2rhqnci" path="res://assets/SONIDOS/botones/boton click.wav" id="11_l35hm"]
 [ext_resource type="AudioStream" uid="uid://uvk6ae03huw8" path="res://assets/SONIDOS/pasos agua/freesound_community-wet-steps-on-liquid-and-dirt-59506 (mp3cut.net) (1).wav" id="12_d4beg"]
 [ext_resource type="AudioStream" uid="uid://cmrik7mhs88l0" path="res://assets/SONIDOS/pasos agua/freesound_community-wet-steps-on-liquid-and-dirt-59506 (mp3cut.net) (2).wav" id="13_3i2lk"]
 [ext_resource type="AudioStream" uid="uid://bt1esl07mpf4j" path="res://assets/SONIDOS/pasos agua/freesound_community-wet-steps-on-liquid-and-dirt-59506 (mp3cut.net).wav" id="14_c868g"]
@@ -103,7 +105,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.08659363, 0)
 fov = 93.3
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Cabeza/Camera3D" unique_id=2049878152]
-light_energy = 0.4
+light_energy = 0.733
 spot_range = 3.7673824
 spot_angle = 52.799114
 
@@ -114,8 +116,11 @@ stream = SubResource("AudioStreamRandomizer_tml57")
 script = ExtResource("5_as36m")
 
 [node name="TextoRec" type="Label" parent="FiltroVHS" unique_id=397237461]
-offset_right = 146.0
-offset_bottom = 75.0
+anchors_preset = -1
+anchor_right = 0.13900001
+anchor_bottom = 0.116000004
+offset_right = -14.128021
+offset_bottom = -0.16799927
 size_flags_horizontal = 4
 theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
@@ -124,11 +129,12 @@ theme_override_font_sizes/font_size = 54
 text = "● REC"
 
 [node name="TextoTiempo" type="Label" parent="FiltroVHS" unique_id=1995521775]
-anchors_preset = 1
-anchor_left = 1.0
+anchors_preset = -1
+anchor_left = 0.71400005
 anchor_right = 1.0
-offset_left = -40.0
-offset_bottom = 23.0
+anchor_bottom = 0.048
+offset_left = 289.47192
+offset_bottom = -8.104
 grow_horizontal = 0
 size_flags_horizontal = 4
 theme_override_fonts/font = SubResource("FontVariation_gheh0")
@@ -192,11 +198,15 @@ color = Color(0, 0, 0, 0.30588236)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MenuPausa/ContenedorPausa" unique_id=1474807862]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
+anchors_preset = -1
+anchor_left = 0.37800002
+anchor_top = 0.367
+anchor_right = 0.62200004
+anchor_bottom = 0.633
+offset_left = 140.54398
+offset_top = 86.18399
+offset_right = -140.54407
+offset_bottom = -86.18402
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -214,7 +224,7 @@ theme_override_fonts/font = SubResource("FontVariation_d4beg")
 theme_override_font_sizes/font_size = 29
 theme_override_styles/normal = SubResource("StyleBoxEmpty_3i2lk")
 theme_override_styles/hover = SubResource("StyleBoxFlat_c868g")
-text = "▶ NIVEL 1"
+text = "▶ BACKROOMS"
 
 [node name="BotonPoolrooms" type="Button" parent="MenuPausa/ContenedorPausa/VBoxContainer" unique_id=1012481486]
 layout_mode = 2
@@ -231,6 +241,12 @@ theme_override_font_sizes/font_size = 29
 theme_override_styles/normal = SubResource("StyleBoxEmpty_n5bi1")
 theme_override_styles/hover = SubResource("StyleBoxFlat_dfbng")
 text = "■ MENÚ PRINCIPAL"
+
+[node name="SonidoHover" type="AudioStreamPlayer" parent="MenuPausa" unique_id=1575764722]
+stream = ExtResource("10_t7qj4")
+
+[node name="SonidoClick" type="AudioStreamPlayer" parent="MenuPausa" unique_id=170868075]
+stream = ExtResource("11_l35hm")
 
 [node name="LinternaAudio" type="AudioStreamPlayer3D" parent="." unique_id=123826293]
 stream = ExtResource("10_gheh0")

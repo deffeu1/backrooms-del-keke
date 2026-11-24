@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://drds7gamxpw1g" path="res://scripts/nivel_poolrooms.gd" id="2_qtbn8"]
 [ext_resource type="Shader" uid="uid://c2pak2op57loj" path="res://assets/shaders/agua_poolrooms.gdshader" id="3_goge7"]
 [ext_resource type="Script" uid="uid://b7fq5j1brjlk4" path="res://scripts/zona_agua.gd" id="5_eaoke"]
+[ext_resource type="AudioStream" uid="uid://d38qf1vtl806w" path="res://assets/SONIDOS/ambiente/aaaaaaaaa (mp3cut.net).wav" id="6_k6bo7"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_duiub"]
 
@@ -57,6 +58,7 @@ bob_frecuencia = 3.0
 bob_frecuencia_agua = 3.2
 inclinacion_lateral = 3.4
 inercia_giro = 0.08
+duracion_linterna = 30.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." index="13" unique_id=124475938]
 environment = SubResource("Environment_duiub")
@@ -73,3 +75,10 @@ script = ExtResource("5_eaoke")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ZonaAgua" index="0" unique_id=1655005982]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.028925896, 0)
 shape = SubResource("BoxShape3D_k6bo7")
+
+[node name="SonidoAmbienteAleatorio" type="AudioStreamPlayer3D" parent="." index="16" unique_id=182819392]
+stream = ExtResource("6_k6bo7")
+unit_size = 13.12
+
+[node name="TimerSonidoAleatorio" type="Timer" parent="SonidoAmbienteAleatorio" index="0" unique_id=460047886]
+one_shot = true

@@ -13,16 +13,21 @@ config_version=5
 config/name="kekerooms"
 run/main_scene="uid://cyg6u15gjqnbm"
 config/features=PackedStringArray("4.6", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="res://keke.svg"
 
 [audio]
 
 buses/default_bus_layout="uid://cjhqf8u0os38h"
 
+[display]
+
+window/size/mode=3
+
 [file_customization]
 
 folder_colors={
 "res://assets/": "red",
+"res://buses/": "pink",
 "res://escenas/": "purple",
 "res://scripts/": "yellow"
 }
